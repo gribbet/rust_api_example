@@ -16,7 +16,7 @@ struct User {
 }
 
 #[get("/")]
-fn get() -> Json<User> {
+async fn get() -> Json<User> {
     let user = User {
         id: 1,
         name: String::from("Testy"),
@@ -25,7 +25,7 @@ fn get() -> Json<User> {
 }
 
 #[post("/", format = "json", data = "<user>")]
-fn post(user: Json<User>) -> Json<User> {
+async fn post(user: Json<User>) -> Json<User> {
     user
 }
 
