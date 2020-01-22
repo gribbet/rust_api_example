@@ -6,7 +6,6 @@ pub struct Database {
 }
 
 type Connection = PooledConnection<ConnectionManager<PgConnection>>;
-
 impl Database {
     pub fn connect(database_url: &'_ str) -> Result<Database, PoolError> {
         let manager = ConnectionManager::<PgConnection>::new(database_url);

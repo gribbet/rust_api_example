@@ -21,13 +21,13 @@ use std::env;
 use std::error::Error;
 
 fn main() -> Result<(), Box<dyn Error>> {
-    let database_url = env::var("DATABASE_URL") //
-        .map_err(|_| "DATABASE_URL required")?;
+    let database_url =
+        env::var("DATABASE_URL").map_err(|_| "DATABASE_URL required")?;
     let database = Database::connect(&database_url)?;
 
-    rocket::ignite() //
-        .manage(database) //
-        .mount("/", routes![user::list, user::get, user::create]) //
+    rocket::ignite()
+        .manage(database)
+        .mount("/", routes![user::list, user::get, user::create])
         .launch()?;
 
     Ok(())

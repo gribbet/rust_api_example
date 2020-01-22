@@ -16,9 +16,10 @@ pub fn list(connection: &PgConnection) -> Result<Vec<User>, Error> {
     users.load::<User>(connection)
 }
 
-pub fn get(connection: &PgConnection, user_id: i32) -> Result<Option<User>, Error> {
-    let mut items = users
-        .filter(id.eq(user_id)) //
-        .load::<User>(connection)?;
+pub fn get(
+    connection: &PgConnection,
+    user_id: i32,
+) -> Result<Option<User>, Error> {
+    let mut items = users.filter(id.eq(user_id)).load::<User>(connection)?;
     Ok(items.pop())
 }

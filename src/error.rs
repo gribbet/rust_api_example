@@ -15,7 +15,10 @@ pub enum ApiError {
 }
 
 impl Display for ApiError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+    fn fmt(
+        &self,
+        f: &mut std::fmt::Formatter<'_>,
+    ) -> std::result::Result<(), std::fmt::Error> {
         match self {
             ApiError::DieselError(error) => write!(f, "{}", error),
             ApiError::PoolError(error) => write!(f, "{}", error),
