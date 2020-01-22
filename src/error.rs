@@ -1,13 +1,10 @@
-use diesel::r2d2::PoolError;
-use diesel::result::Error as DieselError;
-use rocket::http::ContentType;
-use rocket::http::Status;
-use rocket::response::Responder;
-use rocket::response::ResultFuture;
-use rocket::Request;
-use rocket::Response;
-use std::fmt::Display;
-use std::io::Cursor;
+use diesel::{r2d2::PoolError, result::Error as DieselError};
+use rocket::{
+    http::{ContentType, Status},
+    response::{Responder, ResultFuture},
+    Request, Response,
+};
+use std::{fmt::Display, io::Cursor};
 
 pub enum ApiError {
     DieselError(DieselError),

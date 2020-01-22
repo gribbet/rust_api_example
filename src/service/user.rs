@@ -1,15 +1,11 @@
-use crate::model::user::User;
-use crate::schema::users;
-use diesel::prelude::*;
-use diesel::result::Error;
-use diesel::PgConnection;
+use crate::{model::user::User, schema::users};
+use diesel::{prelude::*, result::Error, PgConnection};
 use users::dsl::*;
 
 pub fn create(connection: &PgConnection, user: User) -> Result<User, Error> {
-    diesel::insert_into(users::table)
+    Ok(diesel::insert_into(users::table)
         .values(&user)
-        .execute(connection)?;
-    Ok(user)
+        .get_result::<User>(connection)?)
 }
 
 pub fn list(connection: &PgConnection) -> Result<Vec<User>, Error> {
@@ -20,6 +16,8 @@ pub fn get(
     connection: &PgConnection,
     user_id: i32,
 ) -> Result<Option<User>, Error> {
-    let mut items = users.filter(id.eq(user_id)).load::<User>(connection)?;
-    Ok(items.pop())
+    Ok(users
+        .filter(id.eq(user_id))
+        .get_result::<User>(connection)
+        .optional()?)
 }

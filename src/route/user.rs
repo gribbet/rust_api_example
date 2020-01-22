@@ -1,7 +1,6 @@
-use crate::database::Database;
-use crate::error::ApiError;
-use crate::model::user::User;
-use crate::service::user;
+use crate::{
+    database::Database, error::ApiError, model::user::User, service::user,
+};
 use rocket::State;
 use rocket_contrib::json::Json;
 use std::ops::Deref;

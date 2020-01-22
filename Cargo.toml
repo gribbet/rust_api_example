@@ -10,3 +10,5 @@ rocket_contrib = { git = "https://github.com/SergioBenitez/Rocket.git", branch =
 diesel = { version = "1.4.3", features = ["postgres", "r2d2"] }
 serde = "1.0.104" 
 serde_derive = "1.0.104" 
+easy-error = "0.3.0"
+
