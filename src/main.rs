@@ -4,34 +4,31 @@
 extern crate rocket;
 extern crate rocket_contrib;
 #[macro_use]
+extern crate diesel;
+#[macro_use]
 extern crate serde_derive;
 
-use rocket_contrib::json::Json;
-use std::process;
+mod database;
+mod error;
+mod model;
+mod route;
+mod schema;
+mod service;
 
-#[derive(Serialize, Deserialize)]
-struct User {
-    id: u32,
-    name: String,
-}
+use crate::database::Database;
+use crate::route::user;
+use std::env;
+use std::error::Error;
 
-#[get("/")]
-async fn get() -> Json<User> {
-    let user = User {
-        id: 1,
-        name: String::from("Testy"),
-    };
-    Json(user)
-}
+fn main() -> Result<(), Box<dyn Error>> {
+    let database_url = env::var("DATABASE_URL") //
+        .map_err(|_| "DATABASE_URL required")?;
+    let database = Database::connect(&database_url)?;
 
-#[post("/", format = "json", data = "<user>")]
-async fn post(user: Json<User>) -> Json<User> {
-    user
-}
+    rocket::ignite() //
+        .manage(database) //
+        .mount("/", routes![user::list, user::get, user::create]) //
+        .launch()?;
 
-fn main() {
-    if let Err(error) = rocket::ignite().mount("/", routes![get, post]).launch() {
-        println!("Error: {}", error);
-        process::exit(1)
-    }
+    Ok(())
 }
