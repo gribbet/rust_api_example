@@ -160,12 +160,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "easy-error"
-version = "0.3.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b85899383032959f980eff40022dcc955996deccfd08ed74a22107e4aae97bb4"
-
-[[package]]
 name = "filetime"
 version = "0.2.8"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -831,7 +825,6 @@ name = "rust_api_example"
 version = "0.1.0"
 dependencies = [
  "diesel",
- "easy-error",
  "rocket",
  "rocket_contrib",
  "serde",
